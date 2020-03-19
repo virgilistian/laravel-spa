@@ -9,6 +9,15 @@ class Answer extends Model
 {
     protected $fillable = ['question_id', 'user_id', 'body', 'votes_count'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($answer) {
+            $answer->question->increment('answers_count');
+        });
+    }
+
     public function question()
     {
         return $this->belongsTo(Question::class);
