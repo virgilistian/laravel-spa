@@ -32,4 +32,9 @@ class Answer extends Model
     {
         return Markdown::parse($this->body);
     }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
 }
