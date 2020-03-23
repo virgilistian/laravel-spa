@@ -7,7 +7,7 @@ use Illuminate\Mail\Markdown;
 
 class Answer extends Model
 {
-    protected $fillable = ['question_id', 'user_id', 'body', 'votes_count'];
+    protected $fillable = ['user_id', 'body'];
 
     public static function boot()
     {
