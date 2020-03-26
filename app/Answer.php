@@ -11,6 +11,8 @@ class Answer extends Model
     
     protected $fillable = ['user_id', 'body'];
 
+    protected $appends = ['created_date'];
+
     public static function boot()
     {
         parent::boot();
