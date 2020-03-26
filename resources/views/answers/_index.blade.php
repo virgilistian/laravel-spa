@@ -1,3 +1,4 @@
+@if ($answersCount > 0)
 <div class="row mt-4">
     <div class="col-md-12">
         <div class="card">
@@ -30,7 +31,6 @@
                             @csrf
                             <input type="hidden" name="vote" value="-1">
                         </form>
-                        
                     </div>
                     <div class="media-body">
                         {!! $answer->body_html !!}
@@ -55,8 +55,8 @@
                             <div class="col-4"></div>
                             <div class="col-4">
                                 @include('shared._author', [
-                                    'model' => $answer,
-                                    'label' => 'Answered'
+                                'model' => $answer,
+                                'label' => 'Answered'
                                 ])
                             </div>
                         </div>
@@ -68,3 +68,4 @@
         </div>
     </div>
 </div>
+@endif
