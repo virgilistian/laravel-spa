@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class Question extends Model
 {
     use VotableTrait;
-    
+
     protected $fillable = ['title', 'body'];
 
     public function user()
@@ -57,7 +57,7 @@ class Question extends Model
 
     public function getBodyHtmlAttribute()
     {
-        return Markdown::parse($this->body);
+        return clean($this->bodyHtml());
     }
 
     public function acceptBestAnswer(Answer $answer)
@@ -84,5 +84,20 @@ class Question extends Model
     public function votes()
     {
         return $this->morphToMany(User::class, 'votable');
+    }
+
+    public function getExcerptAttribute()
+    {
+        return $this->excerpt(250);
+    }
+
+    public function excerpt($length)
+    {
+        return Str::limit(strip_tags($this->bodyHtml()), $length);
+    }
+
+    private function bodyHtml()
+    {
+        return Markdown::parse($this->body);
     }
 }

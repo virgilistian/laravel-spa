@@ -36,7 +36,7 @@ class Answer extends Model
 
     public function getBodyHtmlAttribute()
     {
-        return Markdown::parse($this->body);
+        return clean(Markdown::parse($this->body));
     }
 
     public function getCreatedDateAttribute()
