@@ -17,10 +17,10 @@
                     </div>
                     <hr>
                     <div class="media">
-                       @include('shared._vote', [
-                           'model' => $question
-                       ])
-                       
+                        @include('shared._vote', [
+                        'model' => $question
+                        ])
+
                         <div class="media-body">
                             {!! $question->body_html !!}
                             <div class="row">
