@@ -11,7 +11,7 @@ class Answer extends Model
     
     protected $fillable = ['user_id', 'body'];
 
-    protected $appends = ['created_date', 'body_html'];
+    protected $appends = ['created_date', 'body_html', 'is_best'];
 
     public static function boot()
     {
