@@ -10,7 +10,8 @@
                     </div>
                     <hr />
                     <answer
-                        v-for="answer in answers"
+                    @deleted="remove(index)"
+                        v-for="(answer, index) in answers"
                         :answer="answer"
                         :key="answer.id"
                     ></answer>
@@ -45,6 +46,11 @@ export default {
     },
 
     methods: {
+        remove (index) {
+            this.answers.splice(index, 1);
+            this.count--;
+        },
+
         fetch(endpoint) {
             axios.get(endpoint).then(({ data }) => {
                 this.answers.push(...data.data);
