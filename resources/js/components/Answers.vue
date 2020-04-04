@@ -33,8 +33,8 @@
     </div>
 </template>
 <script>
-import Answer from "./Answer";
-import NewAnswer from "./NewAnswer";
+import Answer from "./Answer.vue";
+import NewAnswer from "./NewAnswer.vue";
 
 export default {
     props: ["question"],
