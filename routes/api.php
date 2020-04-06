@@ -23,6 +23,9 @@ Route::middleware(['auth:api'])->group(function() {
     Route::post('/answers/{answer}/vote', 'Api\VoteAnswerController');
     Route::apiResource('/questions', 'Api\QuestionsController')->except('index');
     Route::apiResource('/questions.answers', 'Api\AnswersController')->except('index');
+    Route::post('/answers/{answer}/accept', 'Api\AcceptAnswerController');
+    Route::post('/questions/{question}/favorites', 'Api\FavoritesController@store');
+    Route::delete('/questions/{question}/favorites', 'Api\FavoritesController@destroy');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
