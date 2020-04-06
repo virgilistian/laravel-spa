@@ -9,14 +9,16 @@
                     <hr />
                     <form @submit.prevent="create">
                         <div class="form-group">
-                            <textarea
-                                class="form-control"
-                                name="body"
-                                id=""
-                                rows="7"
-                                required
-                                v-model="body"
-                            ></textarea>
+                            <m-editor :body="body" name="new-answer">
+                                <textarea
+                                    class="form-control"
+                                    name="body"
+                                    id=""
+                                    rows="7"
+                                    required
+                                    v-model="body"
+                                ></textarea>
+                            </m-editor>
                         </div>
                         <div class="form-gorup">
                             <button
@@ -34,22 +36,27 @@
     </div>
 </template>
 <script>
+import MEditor from "./MEditor.vue";
+
 export default {
     props: ["questionId"],
 
+    components: { MEditor },
+
     methods: {
         create() {
-            axios.post(`/questions/${this.questionId}/answers`, {
-                body: this.body
-            })
-            .catch(error => {
-                this.$toast.error(error.response.data.message, "Error");
-            })
-            .then(({data}) => {
-                this.$toast.success(data.message, "Success");
-                this.body = '';
-                this.$emit('created', data.answer);
-            });
+            axios
+                .post(`/questions/${this.questionId}/answers`, {
+                    body: this.body
+                })
+                .catch(error => {
+                    this.$toast.error(error.response.data.message, "Error");
+                })
+                .then(({ data }) => {
+                    this.$toast.success(data.message, "Success");
+                    this.body = "";
+                    this.$emit("created", data.answer);
+                });
         }
     },
 
