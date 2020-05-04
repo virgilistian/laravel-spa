@@ -2,7 +2,11 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <form class="card-body" v-show="authorize('modify', question) && editing" @submit.prevent="update">
+                <form
+                    class="card-body"
+                    v-show="authorize('modify', question) && editing"
+                    @submit.prevent="update"
+                >
                     <div class="card-title">
                         <input
                             type="text"
@@ -44,10 +48,10 @@
                         <div class="d-flex align-items-center">
                             <h2>{{ title }}</h2>
                             <div class="ml-auto">
-                                <a
-                                    href="/questions"
+                                <router-link
+                                    :to="{ name: 'questions' }"
                                     class="btn btn-outline-secondary"
-                                    >Back to All Questions</a
+                                    >Back to all Questions</router-link
                                 >
                             </div>
                         </div>
@@ -97,11 +101,18 @@
 </template>
 <script>
 import modification from "../mixins/modification";
+import EventBus from "../event-bus";
 
 export default {
     props: ["question", "name"],
 
     mixins: [modification],
+
+    mounted() {
+        EventBus.$on("answers-count-changed", count => {
+            this.question.answers_count = count;
+        });
+    },
 
     data() {
         return {
@@ -147,10 +158,8 @@ export default {
                 this.$toast.success(data.message, "Success", {
                     timeout: 2000
                 });
+                this.$router.push({ name: "questions" });
             });
-            setTimeout(() => {
-                window.location.href = "/questions";
-            }, 3000);
         }
     }
 };

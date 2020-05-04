@@ -16,7 +16,13 @@
         <div class="media-body">
             <div class="d-flex align-items-center">
                 <h3 class="mt-0">
-                    <a href="#">{{ question.title }}</a>
+                    <router-link
+                        :to="{
+                            name: 'questions.show',
+                            params: { slug: question.slug }
+                        }"
+                        >{{ question.title }}</router-link
+                    >
                 </h3>
                 <div class="ml-auto">
                     <router-link
@@ -57,14 +63,12 @@ export default {
             return str + (count > 1 ? "s" : "");
         },
         delete() {
-            axios
-                .delete("/questions/" + this.question.id)
-                .then(({ data }) => {
-                    this.$toast.success(data.message, "Success", {
-                        timeout: 2000
-                    });
-                    this.$emit('deleted');
+            axios.delete("/questions/" + this.question.id).then(({ data }) => {
+                this.$toast.success(data.message, "Success", {
+                    timeout: 2000
                 });
+                this.$emit("deleted");
+            });
         }
     },
     computed: {
