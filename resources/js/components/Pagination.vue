@@ -1,13 +1,21 @@
 <template>
     <div class="row align-items-center">
         <div class="col">
-            <button :disabled="isFirst" @click="prev" class="btn btn-outline-secondary">
+            <button
+                :disabled="isFirst"
+                @click="prev"
+                class="btn btn-outline-secondary"
+            >
                 Newer
             </button>
         </div>
         <div class="col text-center">{{ pagesInfo }}</div>
         <div class="col text-right">
-            <button :disabled="isLast" @click="next" class="btn btn-outline-secondary">
+            <button
+                :disabled="isLast"
+                @click="next"
+                class="btn btn-outline-secondary"
+            >
                 Older
             </button>
         </div>
@@ -30,7 +38,7 @@ export default {
     methods: {
         switchPage() {
             this.$router.push({
-                name: `/questions`,
+                name: "questions",
                 query: {
                     page: this.meta.current_page
                 }
