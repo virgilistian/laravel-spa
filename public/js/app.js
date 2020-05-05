@@ -12231,7 +12231,9 @@ __webpack_require__.r(__webpack_exports__);
   props: ["meta", "links"],
   computed: {
     pagesInfo: function pagesInfo() {
-      return "Page ".concat(this.meta.current_page, " of ").concat(this.meta.last_page);
+      var currentPage = this.meta.current_page || 1,
+          lastPage = this.meta.last_page || 1;
+      return "Page ".concat(currentPage, " of ").concat(lastPage);
     },
     isFirst: function isFirst() {
       return this.meta.current_page === 1;
@@ -12459,6 +12461,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_destroy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mixins/destroy */ "./resources/js/mixins/destroy.js");
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
 //
 //
 //
@@ -12513,6 +12516,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_destroy__WEBPACK_IMPORTED_MODULE_0__["default"]],
@@ -12531,7 +12535,9 @@ __webpack_require__.r(__webpack_exports__);
           timeout: 2000
         });
 
-        _this.$emit("deleted");
+        _event_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit("deleted", _this.question.id);
+
+        _this.$root.enableInterceptor();
       });
     }
   },
@@ -12666,6 +12672,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _QuestionExcerpt_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./QuestionExcerpt.vue */ "./resources/js/components/QuestionExcerpt.vue");
 /* harmony import */ var _Pagination_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pagination.vue */ "./resources/js/components/Pagination.vue");
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
 //
 //
 //
@@ -12687,6 +12694,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12702,19 +12710,28 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.fetchQuestions();
+    _event_bus__WEBPACK_IMPORTED_MODULE_2__["default"].$on("deleted", function (id) {
+      var index = _this.questions.findIndex(function (question) {
+        return id === question.id;
+      });
+
+      _this.remove(index);
+    });
   },
   methods: {
     fetchQuestions: function fetchQuestions() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get("/questions", {
         params: this.$route.query
       }).then(function (_ref) {
         var data = _ref.data;
-        _this.questions = data.data;
-        _this.meta = data.meta;
-        _this.links = data.links;
+        _this2.questions = data.data;
+        _this2.meta = data.meta;
+        _this2.links = data.links;
       });
     },
     remove: function remove(index) {
@@ -84138,7 +84155,7 @@ var routes = [{
   component: _pages_EditQuestionPage_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
   name: 'questions.edit'
 }, {
-  path: '/my-posts',
+  path: '/home',
   component: _pages_MyPostsPage_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
   name: 'my-posts',
   meta: {

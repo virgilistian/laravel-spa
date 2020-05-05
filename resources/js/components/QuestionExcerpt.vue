@@ -54,6 +54,7 @@
 </template>
 <script>
 import destroy from "../mixins/destroy";
+import eventBus from '../event-bus';
 
 export default {
     mixins: [destroy],
@@ -67,7 +68,8 @@ export default {
                 this.$toast.success(data.message, "Success", {
                     timeout: 2000
                 });
-                this.$emit("deleted");
+                eventBus.$emit("deleted", this.question.id);
+                this.$root.enableInterceptor();
             });
         }
     },

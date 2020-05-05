@@ -22,6 +22,7 @@
 <script>
 import QuestionExcerpt from "./QuestionExcerpt.vue";
 import Pagination from "./Pagination.vue";
+import eventBus from "../event-bus";
 
 export default {
     components: { QuestionExcerpt, Pagination },
@@ -34,6 +35,12 @@ export default {
     },
     mounted() {
         this.fetchQuestions();
+        eventBus.$on("deleted", id => {
+            let index = this.questions.findIndex(
+                question => id === question.id
+            );
+            this.remove(index);
+        });
     },
     methods: {
         fetchQuestions() {
