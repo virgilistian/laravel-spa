@@ -23,7 +23,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <router-link class="navbar-brand" :to="{ name: 'home' }">{{ config('app.name', 'Laravel') }}</router-link>
+                <router-link class="navbar-brand" :to="{ name: 'home' }">{{ config('app.name', 'Laravel') }}
+                </router-link>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">
@@ -38,8 +39,10 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <router-link class="nav-item" tag="li" :to="{ name: 'questions' }"><a class="nav-link">Questions</a></router-link>
-                        <router-link class="nav-item" tag="li" :to="{ name: 'my-posts' }"><a class="nav-link">My Posts</a></router-link>
+                        <router-link class="nav-item" tag="li" :to="{ name: 'questions' }"><a
+                                class="nav-link">Questions</a></router-link>
+                        <router-link class="nav-item" tag="li" :to="{ name: 'my-posts' }"><a class="nav-link">My
+                                Posts</a></router-link>
                         <!-- Authentication Links -->
                         @guest
                         <li class="nav-item">
@@ -76,7 +79,9 @@
         </nav>
 
         <main class="py-4">
-            <router-view></router-view>
+            <transition name="fade" mode="out-in">
+                <router-view></router-view>
+            </transition>
         </main>
     </div>
 

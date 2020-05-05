@@ -38,9 +38,10 @@
                         </ul>
                     </div>
                     <div class="card-body">
+                        <spinner v-if="$root.loading"></spinner>
                         <ul
                             class="list-group list-group-flush"
-                            v-if="posts.length"
+                            v-else-if="posts.length"
                         >
                             <li
                                 class="list-group-item"

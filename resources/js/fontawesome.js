@@ -3,9 +3,11 @@ config.autoReplaceSvg = 'nest';
 import { faCaretUp,
     faCaretDown,
     faStar,
-    faCheck } from '@fortawesome/free-solid-svg-icons';
+    faCheck, 
+    faSpinner} from '@fortawesome/free-solid-svg-icons';
     library.add(faCaretUp,
     faCaretDown,
     faStar,
-    faCheck);
+    faCheck,
+    faSpinner);
     dom.watch();

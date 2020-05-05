@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="question-title">Question Title</label>
+            <label for="question-body">Explain you question</label>
             <m-editor :body="body" name="question-body">
                 <textarea
                     name="body"
@@ -28,7 +28,8 @@
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-outline-primary btn-lg">
-                {{ buttonText }}
+                <spinner :small="true" v-if="$root.loading"></spinner>
+                <span v-else>{{ buttonText }}</span>
             </button>
         </div>
     </form>

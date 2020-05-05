@@ -26,7 +26,8 @@
                                 type="submit"
                                 class="btn btn-lg btn-outline-primary"
                             >
-                                Submit
+                            <spinner :small="true" :min-width="59.22" v-if="$root.loading"></spinner>
+                                <span v-else>Submit</span>
                             </button>
                         </div>
                     </form>
