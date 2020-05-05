@@ -79,7 +79,7 @@ class User extends Authenticatable
 
             }
             elseif ($post instanceof Question) {
-                $item['type'] = 'A';
+                $item['type'] = 'Q';
                 $item['title'] = $post->title;
                 $item['accepted'] = (bool) $post->best_answer_id;
                 
